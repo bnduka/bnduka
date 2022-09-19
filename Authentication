@@ -1,0 +1,19 @@
+	1. Brute force attacks - weak authentication mechanisms (unencrypted or non complex password)
+These attacks are typically automated using wordlists of usernames and passwords.
+	- During auditing, check whether the website discloses potential usernames publicly. 
+	- check HTTP responses to see if any email addresses are disclosed
+
+	2. Logic flaws or poor coding 
+	
+Vulnerabilities in password-based logins
+Using Burp - I check status codes, error messages and response times
+Enumerating username
+
+	- Username = alpha //Incorrect password
+	- Password = 12345678 //check status 302
+
+Vulnerabilities in multi-factor authentication
+https://0aa5001603afbca9c0cd163e00700026.web-security-academy.net/my-account
+
+	- Replacing the url of the victim with your own url after a successful login
+Replacing your account cookie with the victim's account cookie. Then brute force the 2FA Token
