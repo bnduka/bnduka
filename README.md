@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @bnduka
-- 👀 I’m interested in Application Security and how to secure applications in the cloud
+- 👀 I’m an Application Security and I love securing WeB and Mobile Applications.
 - 🌱 I’m currently learning AWS security, container security and would love all the help I can get from this community
 - 💞️ I’m looking to collaborate on Application Security projects
 - 📫 How to reach me ...
